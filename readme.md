@@ -8,6 +8,8 @@ Introduction
 
 Let me introduce dependo - A small visualization tool that draws an force directed graph of JavaScript dependencies that has been annotated with either CommonJS, or AMD. Behind the scene I’m using a wonderful library named [node-madge](https://github.com/pahen/node-madge/), to extract the dependencies and combined with the power of [D3.js](http://d3js.org/) I draw a beautiful zoomable directed graph.
 
+In this version of dependo, we also provide dependency parser based on annotated comments of javascript, such as `/* global SomeModules */`, `/* exported SomeModules */` to describe dependency other than CommonJS or AMD style. Dependecy parser extends from Johns' [dependency-parser](https://github.com/huchengtw-moz/dependency-parser) and wrapped into `lib/system_module_parser.js`.
+
 
 You can read the full introduction to the project in my [blog post](http://blog.kenneth.io/blog/2013/04/01/visualize-your-javaScript-dependencies-with-dependo/).
 
@@ -27,6 +29,7 @@ The best way to show something is by example, so here I generated a graph of the
 ![Example](https://raw.github.com/auchenberg/dependo/gh-pages/example/dependo.jpg)
 
 See the example here: http://auchenberg.github.com/dependo/example
+See the example of gaia system app: http://shamenchens.github.io/gaia_system_dependency/system_dependency.html
 
 Installation
 ------------
@@ -89,6 +92,10 @@ CLI
 ### Generate HTML report of all module dependencies (AMD), and save it to /example/report.html
 
     $ dependo -f amd /path/src > example/report.html
+    
+### Generate HTML report of all module dependencies in Gaia system app, and save it to system.html
+
+    $ bin/dependo -f system /path/to/gaia/apps/system/js > system.html
     
 Grunt
 -----
