@@ -5,6 +5,7 @@
 var Version = require('../lib/version');
 var Commander = require('commander');
 var Dependo = require('../lib/dependo');
+var SystemModuleParser = require('../lib/system_module_parser');
 
 Commander
     .version(Version)
@@ -20,11 +21,21 @@ if (!Commander.args.length) {
 
 var src = Commander.args[0];
 
-var dependo = new Dependo(src, {
-    format: Commander.format,
-    exclude: Commander.exclude
-});
+if (Commander.format === 'system') {
+  // madge can't parse system app dependency, use system moudle parser instead.
+  // TODO: support base module parsing.
+  var systemModuleParser = new SystemModuleParser(src);
 
-var html = dependo.generateHtml();
+  var html = systemModuleParser.generateHtml();
 
-process.stdout.write(html);
+  process.stdout.write(html);
+} else {
+  var dependo = new Dependo(src, {
+      format: Commander.format,
+      exclude: Commander.exclude
+  });
+
+  var html = dependo.generateHtml();
+
+  process.stdout.write(html);
+}
